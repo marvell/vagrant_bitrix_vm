@@ -22,16 +22,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	end
 
 	config.vm.provision :puppet do |puppet|
-		puppet.manifests_path = ["vm", "/vagrant/puppet/manifests"]
-		puppet.manifest_file = "init.pp"
+		puppet.manifests_path = "puppet/manifests"
+		puppet.manifest_file  = "puppet.pp"
 	end
-
 	config.vm.provision :puppet do |puppet|
-		puppet.facter = {
-			"domain" => DOMAIN
-		}
-
-		puppet.manifests_path = ["vm", "/vagrant/puppet/manifests"]
-		puppet.manifest_file = "application.pp"
+		puppet.manifests_path = "puppet/manifests"
+		puppet.manifest_file  = "pre.pp"
+	end
+	config.vm.provision :puppet do |puppet|
+		puppet.manifests_path = "puppet/manifests"
+		puppet.manifest_file  = "app.pp"
 	end
 end
